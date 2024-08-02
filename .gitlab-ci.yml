@@ -1,0 +1,24 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: python:3.9
+  services:
+    - postgres:13
+  variables:
+    POSTGRES_DB: bike_rental_test
+    POSTGRES_USER: bike_rental_user
+    POSTGRES_PASSWORD: bike_rental_password
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - pytest
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy to production"
+  only:
+    - master

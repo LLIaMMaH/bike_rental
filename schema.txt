@@ -1,0 +1,170 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/available/:
+    get:
+      operationId: listAvailableBikes
+      description: "Method \u0434\u043B\u044F \u043F\u043E\u043B\u0443\u0447\u0435\
+        \u043D\u0438\u044F \u0441\u043F\u0438\u0441\u043A\u0430 \u0434\u043E\u0441\
+        \u0442\u0443\u043F\u043D\u044B\u0445 \u0432\u0435\u043B\u043E\u0441\u0438\u043F\
+        \u0435\u0434\u043E\u0432."
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - api
+  /api/register/:
+    post:
+      operationId: createUserRegistration
+      description: "View \u0434\u043B\u044F \u0440\u0435\u0433\u0438\u0441\u0442\u0440\
+        \u0430\u0446\u0438\u0438 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\
+        \u0435\u043B\u044F."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegistration'
+          description: ''
+      tags:
+      - api
+  /api/login/:
+    post:
+      operationId: createUserLogin
+      description: "Method \u0434\u043B\u044F \u0430\u0432\u0442\u043E\u0440\u0438\
+        \u0437\u0430\u0446\u0438\u0438 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\
+        \u0442\u0435\u043B\u044F."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLogin'
+          description: ''
+      tags:
+      - api
+  /api/rent/{bike_id}/:
+    post:
+      operationId: createRentBike
+      description: "Method \u0434\u043B\u044F \u0430\u0440\u0435\u043D\u0434\u044B\
+        \ \u0432\u0435\u043B\u043E\u0441\u0438\u043F\u0435\u0434\u0430."
+      parameters:
+      - name: bike_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/return/{rental_id}/:
+    post:
+      operationId: createReturnBike
+      description: "Method \u0434\u043B\u044F \u0432\u043E\u0437\u0432\u0440\u0430\
+        \u0449\u0435\u043D\u0438\u044F \u0432\u0435\u043B\u043E\u0441\u0438\u043F\u0435\
+        \u0434\u0430."
+      parameters:
+      - name: rental_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    UserRegistration:
+      type: object
+      properties:
+        username:
+          type: string
+          description: "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\
+            \u043E\u0435 \u043F\u043E\u043B\u0435. \u041D\u0435 \u0431\u043E\u043B\
+            \u0435\u0435 150 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432. \u0422\
+            \u043E\u043B\u044C\u043A\u043E \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\
+            \u0444\u0440\u044B \u0438 \u0441\u0438\u043C\u0432\u043E\u043B\u044B @/./+/-/_."
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - username
+      - password
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password

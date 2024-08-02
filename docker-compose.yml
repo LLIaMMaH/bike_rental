@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=bike_rental
+      - POSTGRES_USER=bike_rental_user
+      - POSTGRES_PASSWORD=bike_rental_password
+  redis:
+    image: redis:6
+  celery:
+    build: .
+    command: celery -A bike_rental worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
